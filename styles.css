@@ -1,0 +1,166 @@
+/* Basic reset and typography */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;line-height:1.4;color:#0f1720;background:#fbfaf6}
+
+/* Navbar */
+.navbar{display:flex;align-items:center;justify-content:space-between;padding:0.65rem 1rem;background:#fbfaf6;border-bottom:0;position:fixed;top:1rem;left:1rem;right:1rem;z-index:1000;transition:background .18s ease,border-color .18s ease,color .18s ease;color:#0f1720;border-radius:12px;box-shadow:0 10px 30px rgba(2,6,23,0.08);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.brand{font-weight:700;color:inherit;text-decoration:none;font-size:1rem;display:inline-flex;align-items:center;gap:0.6rem}
+.brand .brand-text{font-weight:700;font-size:0.95rem;letter-spacing:0.6px;text-transform:uppercase}
+
+.logo{
+  width:clamp(48px,6.5vw,80px);
+  height:auto;
+  border-radius:12px;
+  object-fit:cover;
+  display:block;
+  box-shadow:0 10px 30px rgba(2,6,23,0.12);
+  border:2px solid rgba(2,6,23,0.06);
+}
+
+@media (min-width:900px){
+  .logo{width:clamp(56px,4.5vw,96px);height:auto;border-radius:12px}
+}
+
+.nav-links{display:flex;gap:0.5rem;list-style:none;margin:0;padding:0;align-items:center;margin-left:auto}
+.nav-links li{margin:0}
+.nav-links a{color:inherit;text-decoration:none;padding:0.5rem 0.75rem;border-radius:8px;font-weight:500}
+.nav-links a:hover{background:rgba(15,23,32,0.04)}
+.cta{
+  background:#d2b48c;
+  color:#0f1720;
+  padding:0.45rem 0.9rem;
+  border-radius:20px;
+  transition:background .15s ease, color .15s ease;
+}
+.cta:hover{background:#c9a06b}
+
+/* Dropdown (Projects) */
+.dropdown{position:relative}
+.dropbtn{
+  background:transparent;
+  border:0;
+  color:inherit;
+  padding:0.5rem 0.75rem;
+  border-radius:8px;
+  font-weight:500;
+  font-size:inherit;
+  font-family:inherit;
+  line-height:inherit;
+  text-decoration:none;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  -webkit-appearance:none;
+}
+.dropbtn:hover{background:rgba(15,23,32,0.04)}
+.dropbtn:focus{outline:2px solid rgba(0,0,0,0.08)}
+.dropbtn::after{content:"";display:inline-block;margin-left:0.35rem;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid currentColor;transition:transform .18s ease;transform-origin:center}
+
+.dropdown-menu{position:absolute;top:calc(100% + 6px);left:0;min-width:160px;background:#fff;border-radius:8px;box-shadow:0 8px 24px rgba(2,6,23,0.08);padding:0.25rem 0;list-style:none;margin:0;opacity:0;transform:translateY(-6px) scaleY(.98);visibility:hidden;pointer-events:none;transition:opacity .18s ease,transform .18s ease,visibility .18s}
+.dropdown-menu li a{display:block;padding:0.5rem 1rem;color:#0f1720;text-decoration:none}
+.dropdown-menu li a:hover{background:rgba(15,23,32,0.04)}
+.dropdown.open > .dropdown-menu{opacity:1;transform:translateY(0) scaleY(1);visibility:visible;pointer-events:auto}
+.dropdown.open .dropbtn::after{transform:rotate(180deg)}
+
+@media (max-width:800px){
+  /* In mobile collapsed nav, dropdown behaves like an accordion */
+  .dropdown-menu{position:static;opacity:0;transform:none;visibility:hidden;pointer-events:none;padding-left:0;transition:opacity .18s ease,visibility .18s}
+  .dropdown.open > .dropdown-menu{opacity:1;visibility:visible;pointer-events:auto}
+  .dropbtn{display:block;width:100%;text-align:left;padding:0.65rem 1rem;border-radius:8px;background:transparent;border:0}
+  .nav-links li, .dropdown{width:100%}
+  .dropdown-menu li a{padding-left:1.25rem}
+}
+
+/* Hamburger */
+.hamburger{display:none;background:none;border:0;cursor:pointer;padding:0.5rem;border-radius:8px}
+.hamburger:focus{outline:2px solid rgba(0,120,212,0.25)}
+.hamburger .hamburger-inner{width:22px;height:2px;background:currentColor;display:block;position:relative;transition:transform .25s ease}
+.hamburger .hamburger-inner::before,.hamburger .hamburger-inner::after{content:"";position:absolute;left:0;width:22px;height:2px;background:currentColor;transition:transform .25s ease,opacity .2s ease}
+.hamburger .hamburger-inner::before{top:-7px}
+.hamburger .hamburger-inner::after{top:7px}
+.hamburger.open .hamburger-inner{transform:rotate(45deg)}
+.hamburger.open .hamburger-inner::before{transform:rotate(90deg)}
+.hamburger.open .hamburger-inner::after{opacity:0;transform:translateX(-12px)}
+
+/* Responsive: collapse nav into dropdown */
+@media (max-width:800px){
+  .hamburger{display:inline-flex}
+  .nav-links{position:absolute;top:100%;right:1rem;left:1rem;margin:0;padding:0.75rem;background:#fff;flex-direction:column;gap:0.25rem;border-radius:10px;box-shadow:0 10px 30px rgba(2,6,23,0.08);transform:scaleY(0);transform-origin:top;transition:transform .18s ease-in-out;pointer-events:none}
+  .nav-links.open{transform:scaleY(1);pointer-events:auto}
+  .nav-links a{display:block;padding:0.65rem 1rem;color:#000}
+  .dropbtn{color:#000}
+}
+
+/* Hero placeholder */
+.hero{padding:4rem 1.25rem}
+.hero .container{max-width:900px;margin:0 auto}
+
+@media (min-width:801px){
+  .nav-links{position:static;transform:none;pointer-events:auto}
+  .nav-links a{color:#0f1720}
+  .dropbtn{color:#0f1720}
+  .brand .brand-text{color:#0f1720}
+}
+
+/* Home feature: text left, image right */
+/* Home feature: text left, image right */
+.home-feature{
+  padding:4.5rem 1.25rem;
+  background-color: #fbfaf6; /* match site off-white */
+  min-height: 100vh;
+  display:flex;
+  align-items:center;
+}
+.navbar.solid{background:#ffffff;color:#0f1720;border-bottom:1px solid rgba(15,23,32,0.06)}
+.home-feature .feature-inner{display:flex;gap:3rem;align-items:center;max-width:1200px;margin:0 auto;background:rgba(251,250,246,0.95);padding:1.5rem;border-radius:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);position:relative;z-index:1}
+.feature-text{flex:1;padding-right:1rem;max-width:700px}
+.home-feature .feature-text h2{font-size:2rem;margin:0 0 0.75rem;color:#0f1720;line-height:1.05}
+.home-feature .feature-text p{color:rgba(15,23,32,0.9);line-height:1.6;font-size:1rem}
+.feature-image{flex:1;display:flex;justify-content:flex-end}
+.feature-image img{width:100%;height:auto;border-radius:18px;display:block;box-shadow:0 12px 40px rgba(2,6,23,0.16);object-fit:cover;max-height:45vh;max-width:480px}
+
+/* Larger screens */
+@media (min-width:900px){
+  .home-feature{padding:5.5rem 1.25rem}
+  .home-feature .feature-inner{gap:3.5rem}
+  .feature-text h2{font-size:2rem}
+  .feature-text p{font-size:1.05rem}
+  .feature-image img{max-height:420px}
+}
+
+@media (min-width:1200px){
+  .home-feature{padding:6.5rem 1.25rem}
+  .home-feature .feature-inner{max-width:1300px}
+  .feature-text h2{font-size:2.4rem}
+  .feature-text p{font-size:1.08rem}
+  .feature-image img{max-height:480px}
+}
+
+@media (max-width:800px){
+  .home-feature .feature-inner{flex-direction:column;align-items:stretch;padding:1rem}
+  .feature-image{order:-1;justify-content:center;margin-bottom:1rem}
+  .feature-text{order:0}
+  .feature-text h2{font-size:1.25rem}
+}
+
+/* Our Expertise cards */
+.expertise{padding:3.25rem 1.25rem;background:transparent}
+.expertise .container{max-width:1200px;margin:0 auto}
+.expertise .section-title{font-size:1.6rem;margin:0 0 1.25rem;color:#0f1720;text-align:center}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;align-items:stretch}
+.card{background:#ffffff;border-radius:12px;padding:0;overflow:hidden;box-shadow:0 10px 30px rgba(2,6,23,0.06);display:flex;flex-direction:column;transition:transform .22s ease,box-shadow .22s ease;will-change:transform;transform-origin:center}
+.card img{width:100%;height:360px;object-fit:cover;display:block}
+.card h3{font-size:1.05rem;margin:0.75rem 1rem 0.25rem;color:#0f1720}
+.card p{margin:0 1rem 1rem;color:rgba(15,23,32,0.75);line-height:1.45;font-size:0.95rem}
+
+.card:hover{transform:scale(1.03);box-shadow:0 18px 50px rgba(2,6,23,0.12);z-index:2}
+
+@media (max-width:1000px){
+  .cards{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:600px){
+  .cards{grid-template-columns:1fr}
+  .card img{height:200px}
+  .expertise{padding:2rem 1rem}
+}

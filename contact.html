@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact — The Interiors Hub</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .contact-hero{padding:5.5rem 1.25rem 2rem}
+    .contact-inner{max-width:1100px;margin:0 auto;display:block;gap:2rem;align-items:start}
+    .contact-form{background:linear-gradient(180deg,#ffffff,#fbfaf6);padding:1.5rem;border-radius:14px;box-shadow:0 18px 50px rgba(2,6,23,0.08);margin:0 auto;max-width:820px}
+    .contact-form .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.85rem}
+    .contact-form .field{position:relative;padding-top:0.5rem}
+    .contact-form .field.full{grid-column:1/-1}
+    .contact-form .field input,.contact-form .field textarea,.contact-form .field select{width:100%;padding:1.05rem 1rem;border-radius:10px;border:1px solid rgba(15,23,32,0.06);background:transparent;font-size:0.98rem;-webkit-appearance:none;-moz-appearance:none;appearance:none}
+    .contact-form .field select{background-image:none;background-repeat:no-repeat;background-position:right 14px center;padding-right:2.75rem;transition:box-shadow .18s ease,border-color .18s ease,background-color .18s ease}
+    .contact-form .field select::-ms-expand{display:none}
+    .contact-form .field textarea{min-height:150px;resize:none}
+    .contact-form .field label{position:absolute;left:14px;top:14px;pointer-events:none;color:rgba(15,23,32,0.6);transition:transform .14s ease,font-size .14s ease,color .14s ease}
+    .contact-form .field.filled label{transform:translateY(-1.25rem);font-size:0.78rem;color:#b8874d}
+    .contact-form .field input:focus,.contact-form .field textarea:focus,.contact-form .field select:focus{outline:none;border-color:rgba(184,135,77,0.12);box-shadow:0 8px 24px rgba(184,135,77,0.06)}
+    /* Hide native select visually for fields that will use a custom dropdown UI */
+    .contact-form .field.has-arrow select{position:absolute;opacity:0;pointer-events:none;height:1px;width:1px;overflow:hidden}
+
+    /* Custom select (visible UI) */
+    .contact-form .field .custom-select{display:flex;align-items:center;justify-content:space-between;padding:1.05rem 1rem;border-radius:10px;border:1px solid rgba(15,23,32,0.06);background:transparent;font-size:0.98rem;cursor:pointer}
+    .contact-form .field .custom-select .selected-text{color:rgba(15,23,32,0.7)}
+    .contact-form .field .custom-select .arrow{width:18px;height:18px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23b8874d' d='M7 10l5 5 5-5z'/></svg>");background-repeat:no-repeat;background-size:18px 18px;transform:rotate(0deg);transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+    .contact-form .field.has-arrow.open .custom-select{border-color:rgba(184,135,77,0.12);box-shadow:0 8px 24px rgba(184,135,77,0.06)}
+    .contact-form .field.has-arrow.open .custom-select .arrow{transform:rotate(180deg)}
+
+    /* Options panel */
+    .contact-form .field .custom-options{position:absolute;left:0;right:0;top:calc(100% + 8px);background:linear-gradient(180deg,#ffffff,#fbfaf6);border-radius:10px;box-shadow:0 18px 40px rgba(2,6,23,0.08);list-style:none;margin:0;padding:0.25rem 0;max-height:0;overflow:hidden;opacity:0;transform:translateY(-6px);transition:max-height .24s ease,opacity .18s ease,transform .18s ease;z-index:30}
+    .contact-form .field.has-arrow.open .custom-options{max-height:240px;opacity:1;transform:translateY(0)}
+    .contact-form .field .custom-options li{padding:0.6rem 1rem;cursor:pointer;color:#0f1720}
+    .contact-form .field .custom-options li:hover,[aria-selected="true"]{background:rgba(15,23,32,0.04)}
+    .contact-form .actions{grid-column:1/-1;display:flex;justify-content:center;margin-top:0.35rem}
+    .contact-form .btn{background:linear-gradient(90deg,#b8874d,#d2b48c);color:#fff;padding:0.75rem 1.25rem;border-radius:12px;border:0;cursor:pointer;font-weight:700;box-shadow:0 8px 30px rgba(184,135,77,0.12)}
+    .contact-form .btn:active{transform:translateY(1px)}
+    .contact-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
+    .info-card{background:linear-gradient(180deg,#fbfaf6,#f7f6f2);padding:1rem;border-radius:10px;box-shadow:0 8px 24px rgba(2,6,23,0.04);text-align:center;transition:transform .18s ease,box-shadow .18s ease}
+    .info-card .info-icon{width:56px;height:56px;margin:0 auto 0.6rem;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#fff;box-shadow:0 8px 18px rgba(2,6,23,0.06);transition:background .18s ease,box-shadow .18s ease}
+    .info-link{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;text-decoration:none}
+    .info-link:focus{outline:3px solid rgba(184,135,77,0.12);outline-offset:6px}
+    .info-card svg{width:28px;height:28px;display:block;fill:#d2b48c;transition:fill .18s ease}
+
+    /* Hover / focus effects */
+    .info-card:hover, .info-card:focus-within{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,0.12)}
+    .info-card:hover .info-icon, .info-card:focus-within .info-icon{background:#fff;box-shadow:0 14px 40px rgba(2,6,23,0.12)}
+    .info-card:hover svg, .info-card:focus-within svg{fill:#b8874d}
+    .info-card a{color:inherit;text-decoration:none;font-weight:600}
+    .info-card:focus-within{outline:2px solid rgba(184,135,77,0.12);outline-offset:6px}
+    @media (max-width:900px){.contact-inner{grid-template-columns:1fr;}}
+    @media (max-width:800px){.contact-cards{grid-template-columns:1fr}}
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="brand">
+        <img src="imgs/interiors%20hub%20logo.png" alt="THE INTERIORS HUB logo" class="logo">
+        <span class="brand-text">THE INTERIORS HUB</span>
+      </a>
+
+      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="hamburger-inner"></span>
+      </button>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li class="dropdown">
+          <button class="dropbtn" aria-expanded="false" aria-haspopup="true">Projects</button>
+          <ul class="dropdown-menu" role="menu">
+            <li role="none"><a role="menuitem" href="#">Residential</a></li>
+            <li role="none"><a role="menuitem" href="#">Commercial</a></li>
+          </ul>
+        </li>
+        <li><a class="cta" href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="contact-hero">
+      <div class="container contact-inner">
+        <div style="max-width:820px;margin:0 auto;">
+          <h2 style="text-align:center">Contact Us</h2>
+          <p style="text-align:center">Have a project in mind? Tell us about it — we’ll get back to you within 1–2 business days.</p>
+
+          <form id="contactForm" class="contact-form" novalidate>
+            <div class="form-grid">
+              <div class="field" data-label="Full name">
+                <input id="name" name="name" type="text" autocomplete="name" required placeholder=" ">
+                <label for="name">Full name</label>
+              </div>
+
+              <div class="field" data-label="Email">
+                <input id="email" name="email" type="email" autocomplete="email" required placeholder=" ">
+                <label for="email">Email</label>
+              </div>
+
+              <div class="field" data-label="Phone">
+                <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder=" ">
+                <label for="phone">Phone (optional)</label>
+              </div>
+
+              <div class="field has-arrow" data-label="Project type">
+                <select id="projectType" name="projectType">
+                  <option value="" selected disabled hidden></option>
+                  <option value="residential">Residential</option>
+                  <option value="commercial">Commercial</option>
+                </select>
+                <label for="projectType">Project type (optional)</label>
+              </div>
+
+              <div class="field full" data-label="Message">
+                <textarea id="message" name="message" required placeholder=" "></textarea>
+                <label for="message">Message</label>
+              </div>
+
+              <div class="actions">
+                <button type="submit" class="btn">Send message</button>
+              </div>
+            </div>
+          </form>
+
+          <div class="contact-cards" style="margin-top:1.25rem;">
+            <div class="info-card">
+              <a class="info-link" href="tel:+919310326361" aria-label="Call +91 9310326361">
+                <div class="info-icon" aria-hidden="true">
+                  <!-- Phone SVG -->
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+                    <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.55.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.55 1 1 0 01-.24 1.01l-2.21 2.23z"/>
+                  </svg>
+                </div>
+              </a>
+              <h4>Call Us</h4>
+              <p><a href="tel:+919310326361">+91 9310326361</a></p>
+              <p style="color:rgba(15,23,32,0.7);margin-top:0.5rem">Mon–Fri 9am–5pm</p>
+            </div>
+
+            <div class="info-card">
+              <a class="info-link" href="mailto:shubhamshr4321@gmail.com" aria-label="Email shubhamshr4321 at gmail dot com">
+                <div class="info-icon" aria-hidden="true">
+                  <!-- Email SVG -->
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+                    <path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                  </svg>
+                </div>
+              </a>
+              <h4>Email</h4>
+              <p><a href="mailto:shubhamshr4321@gmail.com">shubhamshr4321@gmail.com</a></p>
+              <p style="color:rgba(15,23,32,0.7);margin-top:0.5rem">We reply within 1–2 business days</p>
+            </div>
+
+            <div class="info-card">
+              <a class="info-link" href="https://maps.app.goo.gl/cguqPHDiVbjCwB889" target="_blank" rel="noopener noreferrer" aria-label="Open location in Google Maps">
+                <div class="info-icon" aria-hidden="true">
+                  <!-- Location SVG -->
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+                    <path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z"/>
+                  </svg>
+                </div>
+              </a>
+              <h4>Visit Us</h4>
+              <p><a href="https://maps.app.goo.gl/cguqPHDiVbjCwB889" target="_blank" rel="noopener noreferrer">View on Google Maps</a></p>
+              <p style="color:rgba(15,23,32,0.7);margin-top:0.5rem">By appointment only</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const form = document.getElementById('contactForm');
+      if(!form) return;
+
+      // Floating label behavior: add/remove .filled on parent .field
+      function bindFloating(){
+        const controls = form.querySelectorAll('.field input, .field textarea, .field select');
+        controls.forEach(function(ctrl){
+          function check(){
+            if(ctrl.value && ctrl.value.trim() !== '') ctrl.parentElement.classList.add('filled');
+            else ctrl.parentElement.classList.remove('filled');
+          }
+          ctrl.addEventListener('input', check);
+          ctrl.addEventListener('change', check);
+          ctrl.addEventListener('blur', check);
+          // init
+          check();
+        });
+      }
+
+      bindFloating();
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const message = form.message.value.trim();
+        if(!name || !email || !message){
+          // soft inline validation
+          alert('Please complete the required fields: name, email, and message.');
+          return;
+        }
+        // show success state
+        form.innerHTML = '<div style="padding:1.25rem;text-align:center;"><h3 style="margin:0 0 .5rem;color:#0f1720">Message sent</h3><p style="margin:0;color:rgba(15,23,32,0.8)">Thanks, we have received your message and will respond shortly.</p></div>';
+      });
+    })();
+  </script>
+
+  <script>
+    (function(){
+      // Create a custom dropdown for fields with .has-arrow so we can style and animate the list
+      const fields = document.querySelectorAll('.field.has-arrow');
+      fields.forEach(function(field){
+        const select = field.querySelector('select');
+        if(!select) return;
+
+        // Build visible control
+        const custom = document.createElement('div');
+        custom.className = 'custom-select';
+        custom.tabIndex = 0;
+        custom.setAttribute('role','button');
+        custom.setAttribute('aria-haspopup','listbox');
+        custom.setAttribute('aria-expanded','false');
+
+        const textSpan = document.createElement('span');
+        textSpan.className = 'selected-text';
+        const arrow = document.createElement('span');
+        arrow.className = 'arrow';
+        custom.appendChild(textSpan);
+        custom.appendChild(arrow);
+
+        // Build options list
+        const list = document.createElement('ul');
+        list.className = 'custom-options';
+        list.setAttribute('role','listbox');
+
+        Array.from(select.options).forEach(function(opt){
+          // skip the empty placeholder option
+          if(opt.disabled && opt.value === '') return;
+          const li = document.createElement('li');
+          li.setAttribute('role','option');
+          li.tabIndex = -1;
+          li.dataset.value = opt.value;
+          li.textContent = opt.textContent;
+          if(opt.selected){
+            li.setAttribute('aria-selected','true');
+            textSpan.textContent = opt.textContent;
+            field.classList.add('filled');
+          }
+          li.addEventListener('click', function(e){
+            e.stopPropagation();
+            select.value = li.dataset.value;
+            select.dispatchEvent(new Event('change', {bubbles:true}));
+            updateSelection(li);
+            close();
+          });
+          li.addEventListener('keydown', function(e){
+            if(e.key === 'Enter' || e.key === ' '){
+              e.preventDefault(); li.click();
+            } else if(e.key === 'ArrowDown'){
+              e.preventDefault(); focusNext(li);
+            } else if(e.key === 'ArrowUp'){
+              e.preventDefault(); focusPrev(li);
+            }
+          });
+          list.appendChild(li);
+        });
+
+        // Start with no visible selected text so the floating label remains visible
+        textSpan.textContent = '';
+
+        field.appendChild(custom);
+        field.appendChild(list);
+
+        // Hide native select visually (kept for form semantics)
+        select.style.position = 'absolute';
+        select.style.opacity = '0';
+        select.style.pointerEvents = 'none';
+        select.style.width = '1px';
+        select.style.height = '1px';
+        select.style.overflow = 'hidden';
+
+        // helpers
+        function open(){
+          field.classList.add('open');
+          // make label float while open
+          field.classList.add('filled');
+          custom.setAttribute('aria-expanded','true');
+          list.style.maxHeight = list.scrollHeight + 'px';
+          const sel = list.querySelector('[aria-selected="true"]');
+          (sel || list.querySelector('li'))?.focus();
+        }
+        function close(){
+          field.classList.remove('open');
+          custom.setAttribute('aria-expanded','false');
+          list.style.maxHeight = '0';
+          // if no selection, remove floated label
+          if(!select.value) field.classList.remove('filled');
+          custom.focus();
+        }
+        function toggle(){ if(field.classList.contains('open')) close(); else open(); }
+        function updateSelection(li){
+          list.querySelectorAll('li').forEach(n=>n.removeAttribute('aria-selected'));
+          li.setAttribute('aria-selected','true');
+          textSpan.textContent = li.textContent;
+          field.classList.add('filled');
+        }
+        function focusNext(li){ const items = Array.from(list.querySelectorAll('li')); const idx = items.indexOf(li); if(idx < items.length-1) items[idx+1].focus(); }
+        function focusPrev(li){ const items = Array.from(list.querySelectorAll('li')); const idx = items.indexOf(li); if(idx > 0) items[idx-1].focus(); }
+
+        // interactions
+        custom.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+        custom.addEventListener('keydown', function(e){
+          if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+          else if(e.key === 'ArrowDown'){ e.preventDefault(); open(); }
+          else if(e.key === 'Escape'){ close(); }
+        });
+
+        // click on option already handled; close on outside click
+        document.addEventListener('click', function(e){ if(!field.contains(e.target)) close(); });
+        document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
+
+        // sync when native select value changes programmatically
+        select.addEventListener('change', function(){
+          const opt = select.options[select.selectedIndex];
+          const li = list.querySelector(`li[data-value="${opt ? opt.value : ''}"]`);
+          if(li) updateSelection(li);
+        });
+      });
+    })();
+  </script>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
